@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EdAl Designbyrå</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, white, #aaa, #333, black);
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #eeeeee;
+      color: #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 20px 60px;
+      position: relative;
+    }
+    .header-video {
+      width: 150px;
+    }
+    .header-video video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .header-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-left: 30px;
+    }
+    .header-text h1 {
+      font-size: 3em;
+      background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glitter 3s infinite linear;
+      background-size: 300% 300%;
+    }
+    @keyframes glitter {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .header-text p {
+      margin: 0;
+      font-style: italic;
+      color: #444;
+    }
+    .lock-icon {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+    }
+    .lock-icon svg {
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(0 0 6px gold);
+    }
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+    }
+    nav a {
+      color: white;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav a:hover {
+      background-color: #666;
+    }
+    .content {
+      padding: 30px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+    .gallery img {
+      max-width: 150px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    #lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      cursor: zoom-out;
+    }
+    #lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-video">
+      <video src="EdAl.mp4" autoplay loop muted playsinline></video>
+    </div>
+    <div class="header-text">
+      <h1>EdAl Designbyrå</h1>
+      <p>Edwin (11), Albert (8)</p>
+    </div>
+    <div class="lock-icon" onclick="enterSecret()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold">
+        <path d="M12 2C9.8 2 8 3.8 8 6v4H7c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V12c0-1.1-.9-2-2-2h-1V6c0-2.2-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2v4h-4V6c0-1.1.9-2 2-2zm-1 10h2v4h-2v-4z"/>
+      </svg>
+    </div>
+  </header>
+
+  <nav>
+    <a onclick="showContent('galleri')">GALLERI</a>
+    <a onclick="showContent('om')">OM OSS</a>
+    <a onclick="showContent('media')">MEDIA</a>
+    <a onclick="showContent('kontakt')">KONTAKT</a>
+  </nav>
+
+  <div class="content" id="content-area">
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 EdAl Designbyrå</p>
+  </footer>
+
+  <div id="lightbox">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function enterSecret() {
+      const pw = prompt("Skriv inn passord:");
+      if (pw === "hodne") {
+        window.location.href = "hemmelig.html";
+      } else {
+        alert("Feil passord");
+      }
+    }
+
+    function loadGallery() {
+      const galleryContainer = document.getElementById('gallery');
+      galleryContainer.innerHTML = '';
+      for (let i = 1; i <= 100; i++) {
+        const imgPath = `galleri/${i}.jpg`;
+        const thumb = document.createElement('img');
+        thumb.src = imgPath;
+        thumb.alt = `Bilde ${i}`;
+        thumb.onload = () => galleryContainer.appendChild(thumb);
+        thumb.onerror = () => {};
+        thumb.onclick = () => showLargeImage(imgPath);
+      }
+    }
+
+    function showLargeImage(src) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      lightboxImg.src = src;
+      lightbox.style.display = 'flex';
+    }
+
+    document.getElementById('lightbox').onclick = () => {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').style.display = 'none';
+      }
+    });
+
+    function showContent(section) {
+      if (section === 'galleri') {
+        document.getElementById('content-area').innerHTML = '<div class="gallery" id="gallery"></div>';
+        loadGallery();
+      } else if (section === 'om') {
+        document.getElementById('content-area').innerHTML = '<div style="margin-bottom: 300px;"><h2>Om oss</h2><img src="EdAl_forside.jpg" alt="Edwin og Albert ved skrivebord" style="max-width:300px; float:left; margin-right:20px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2);"><p><span style="background: linear-gradient(to right, black, white); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block;">Vi er EdAl Designbyrå – to kreative brødre som lager kule design, plakater, og digitale tegninger! Vi jobber som team og har pappa som veileder. Vi lager ting for både barn og voksne.</span></p></div>';
+      } else if (section === 'media') {
+        document.getElementById('content-area').innerHTML = '<div><video src="media/video.mp4" controls autoplay style="max-width:50%; border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.2);"></video></div>';
+      } else if (section === 'kontakt') {
+        document.getElementById('content-area').innerHTML = '<div style="margin-bottom: 80px;"><h2>Kontakt oss</h2><p>Vil du samarbeide med oss eller bestille noe kult? Send en e-post til edal@designbyra.no</p></div>';
+      }
+    }
+
+    loadGallery();
+  </script>
+</body>
+</html>
