@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <title>Media – EdAl Designbyrå</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background-color: #ccc;
+      padding: 30px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav {
+      background-color: #444;
+      display: flex;
+      justify-content: center;
+    }
+    nav a {
+      color: white;
+      padding: 15px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      background-color: #666;
+    }
+    .content {
+      padding: 40px;
+    }
+    .media-block {
+      margin-bottom: 30px;
+      background: #f4f4f4;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Media</h1>
+    <p>Nyheter, videoer og omtaler av EdAl Designbyrå</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Hjem</a>
+    <a href="galleri.html">Galleri</a>
+    <a href="media.html">Media</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+
+  <div class="content">
+    <div class="media-block">
+      <h2>Intervju i lokalavisen</h2>
+      <p>Edwin og Albert forteller om sitt designbyrå i <a href="#">Nordstrands Blad</a>.</p>
+    </div>
+
+    <div class="media-block">
+      <h2>Behind the scenes-video</h2>
+      <video controls width="100%">
+        <source src="edal_video.mp4" type="video/mp4">
+        Nettleseren din støtter ikke videoavspilling.
+      </video>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 EdAl Designbyrå</p>
+  </footer>
+</body>
+</html>
